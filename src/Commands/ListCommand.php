@@ -12,7 +12,7 @@ class ListCommand
     {
         print "\n[Commands]:\n";
         foreach ($this->commands as $command => $class) {
-            printf("%s: %s \n", $command, $class);
+            printf("%s: %s\n", $command, $class);
         }
         print "\n";
     }

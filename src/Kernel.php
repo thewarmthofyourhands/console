@@ -7,7 +7,10 @@ namespace Eva\Console;
 use Eva\Console\Events\ExceptionEvent;
 use Eva\Console\Events\InputEvent;
 use Eva\Console\Events\OutputEvent;
+use Eva\Console\Events\TerminateEvent;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Throwable;
 
 class Kernel implements KernelInterface
@@ -31,5 +34,15 @@ class Kernel implements KernelInterface
         } catch (Throwable $e) {
             $this->container->get('eventDispatcher')->dispatch(new ExceptionEvent($argvInput, $e));
         }
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function terminate(ArgvInput $argvInput): void
+    {
+        $event = new TerminateEvent($argvInput);
+        $this->container->get('eventDispatcher')->dispatch($event);
     }
 }

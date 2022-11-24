@@ -19,7 +19,7 @@ class ArgvInput
     public function parseArgv(array $args): void
     {
         $this->filename = current($args);
-        $this->commandName = next($args);
+        $this->commandName = next($args) ?: '';
 
         while ($arg = next($args)) {
             if ($arg[0] === '-' && $arg[1] === '-') {
