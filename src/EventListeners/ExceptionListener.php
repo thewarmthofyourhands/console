@@ -10,8 +10,15 @@ class ExceptionListener
 {
     public function __invoke(ExceptionEvent $exceptionEvent): void
     {
-        $message = $exceptionEvent->getThrowable()->getMessage();
-        $message =  'error: ' . $exceptionEvent->getThrowable()->getTraceAsString() . $message;
+        $throwable = $exceptionEvent->getThrowable();
+        $message = sprintf(
+            'error code: %s, message: %s, file: %s, line: %s, trace: %s' . PHP_EOL,
+            $throwable->getCode(),
+            $throwable->getMessage(),
+            $throwable->getFile(),
+            $throwable->getLine(),
+            $throwable->getTraceAsString(),
+        );
         echo $message;
     }
 }
